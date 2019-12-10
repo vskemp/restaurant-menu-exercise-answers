@@ -1,3 +1,5 @@
+const itemContainer = document.querySelector(".js-link-container");
+
 
 const menu = {
     breakfast: [
@@ -147,11 +149,13 @@ function getCatagories(menuCat) {
 // DOM element with the category name set as its .textContent
 // Make sure to return the new element.
 
-function nameToListItem() {
-    
-}
-console.log();
 
+function nameToListItem(name){
+    let li = document.createElement(`li`);
+    li.textContent = name;
+    // console.log(li);
+    return li;
+}
 ////////////////////////////////////
 
 // Write a function that transforms an array of category names to an array of <li> elements.
@@ -159,12 +163,20 @@ console.log();
 
 // It should use your nameToListItem() function to do the transformation.
 
+function categoriesToListItems(nameArr){
+    return nameArr.map(nameToListItem);
+}
+
 ////////////////////////////////////
 
 // Use getCategories() in combination with categoriesToListItem()
 // Call your getCategories() function to extract the name of the categories.
 
 // Take the result and pass it to the categoriesToListItem() function
+
+function categoriesToListItems(nameArr){
+    return nameArr.map(nameToListItem);
+}
 
 ////////////////////////////////////
 
@@ -176,6 +188,18 @@ console.log();
 // (Hint: this is the third step in transforming the category names into DOM elements the user can see. 
 // The first two are getCategories() and categoriesToListItem())
 
+function appendLiToElement(element){
+    menuContainer.appendChild(element);
+}
+
+function valueOfCategory(cat){
+    let newArr = [];
+    for (let item of menu[cat]){
+        newArr.push(item.name);
+    }
+    return newArr;
+}
+
 ////////////////////////////////////
 
 // Medium exercise: Handle category list click
@@ -186,11 +210,28 @@ console.log();
 // First, do nothing but console.log() the category name (i.e., the text between the opening and closing tag)
 // Make sure to add the click handler to the elements before you .appendChild them
 
+function addClickHandler(obj){
+    obj.addEventListener('click', clickCallback);
+}
+
 ////////////////////////////////////
 
 // Retrieve value for a category name
 // Write a function that accepts a category name (such as "lunch") as an argument and returns the 
 // array of lunch items in the menu variable.
+
+function clickCallback(event){
+    console.log("You clicked!");
+    console.log(event.target.textContent);
+}
+
+function isItVegan(food){
+    return food.isVegan;
+}
+
+function isItVegetarian(food){
+    return food.isVegetarian;
+}
 
 ////////////////////////////////////
 
@@ -202,6 +243,34 @@ console.log();
 // Your itemToCard function should accept an item object such as this one:
 
 // {
+//     <h2>Ice cream</h2>
+//     <h3>4</h3>
+// </div>
+
+function itemToCard(menuObj){
+    const div = document.createElement("div");
+    div.className = "card";
+    const h2 = document.createElement("h2");
+    const h4 = document.createElement("h3");
+    const img = document.createElement("img");
+    img.src = menuObj.photo;
+    h2.textContent = menuObj.name;
+    console.log(menuObj.name);
+    h4.textContent = menuObj.price;
+    div.appendChild(h2);
+    div.appendChild(h4);
+    div.appendChild(img);
+    return div;
+}
+
+////////////////////////////////////
+
+// Create an appendCardToMainContent() function.
+// It should accept a single card element and append it to the .js-main-content element.
+
+function appendCardToMainContent(menuCard){
+    mainContentContainer.appendChild(menuCard);
+}
 //     name: "Ice cream",
 //     isVegetarian: true,
 //     isVegan: false,
@@ -212,14 +281,6 @@ console.log();
 // // Wrap the item in elements:
 
 // <div class="card">
-//     <h2>Ice cream</h2>
-//     <h3>4</h3>
-// </div>
-
-////////////////////////////////////
-
-// Create an appendCardToMainContent() function.
-// It should accept a single card element and append it to the .js-main-content element.
 
 ////////////////////////////////////
 
@@ -227,6 +288,7 @@ console.log();
 // When the user clicks on a category name, use that name to look up the value in the menu object.
 // Pass that value to the itemToCard() function.
 // Then pass the card to your appendCardToMainContent() function
+
 
 ////////////////////////////////////
 
